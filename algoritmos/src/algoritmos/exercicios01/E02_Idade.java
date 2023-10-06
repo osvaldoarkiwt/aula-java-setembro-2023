@@ -26,5 +26,10 @@ public class E02_Idade {
 		System.out.println("A idade em meses é: "+(idade*12));
 		
 		System.out.println("A idade em dias é: "+(idade*365+(idade/4)));
+		LocalDate aniversario = LocalDate.of(1987, Month.OCTOBER, 5);
+		
+		System.out.println(aniversario.until(LocalDate.now(), ChronoUnit.YEARS));
+		System.out.println(aniversario.until(LocalDate.now(), ChronoUnit.MONTHS));
+		System.out.println(aniversario.until(LocalDate.now(), ChronoUnit.DAYS));
 	}
 }
