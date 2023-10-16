@@ -5,7 +5,7 @@ public class A02_ClasseMath {
 	public static void main(String[] args) {
 	 //sempre retorna o número positivo	
 	 //System.out.println(Math.abs(-20));
-	 double numero = 3.3;	
+	 //double numero = 3.3;	
 	 //arredonda para baixo	
 	 //System.out.println(Math.floor(numero));
 	 //arredonda para cima

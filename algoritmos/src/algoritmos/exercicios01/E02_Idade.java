@@ -31,5 +31,7 @@ public class E02_Idade {
 		System.out.println(aniversario.until(LocalDate.now(), ChronoUnit.YEARS));
 		System.out.println(aniversario.until(LocalDate.now(), ChronoUnit.MONTHS));
 		System.out.println(aniversario.until(LocalDate.now(), ChronoUnit.DAYS));
+
+		leitor.close();
 	}
 }
