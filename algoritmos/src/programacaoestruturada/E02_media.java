@@ -1,5 +1,7 @@
 package programacaoestruturada;
 
+import java.util.Scanner;
+
 public class E02_media {
 	/*
 	 * receba duas notas e calcule a média
@@ -13,10 +15,18 @@ public class E02_media {
 	 * */
 	public static void main(String[] args) {
 		
-		double nota01 = 10, nota02 = 4, media = 0; 
+		Scanner leitor = new Scanner(System.in);
+		
+		double nota01 = 0, nota02 = 0, media = 0, notaRecuperacao = 0; 
+		
+		System.out.println("digite a primeira nota");
+		nota01 = leitor.nextDouble();
+		
+		System.out.println("digite a segunda nota");		
+		nota02 = leitor.nextDouble();
 		
 		boolean notaValida = nota01 >= 0 && nota01 <= 10 && nota02 >= 0 && nota02 <= 10;
-		
+
 		media = (nota01 + nota02) / 2;
 		
 		if(media >= 7 && notaValida) {
@@ -24,6 +34,20 @@ public class E02_media {
 			
 		}else if(media >= 3 && media < 7 && notaValida) {
 			System.out.println("em recuperação");
+			
+			String resposta = "";
+			
+			System.out.println("digite a nota da recuperação");
+			
+			notaRecuperacao = leitor.nextDouble();
+									
+			if(notaRecuperacao < 0 && notaRecuperacao > 10 ) { 
+				resposta = "nota inválida";
+			}else {
+				resposta = notaRecuperacao >= 6 ? "Aprovado" : "Reprovado";
+			}
+			
+			System.out.println(resposta);
 			
 		}else if(media < 3 && notaValida) {
 			System.out.println("reprovado");
