@@ -55,7 +55,8 @@ public class E02_media {
 		}else {
 			System.out.println("notas inválidas");
 		}
-		
+	
+		leitor.close();
 	}
 
 }
