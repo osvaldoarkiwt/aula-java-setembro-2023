@@ -1,4 +1,4 @@
-package programacaoestruturada;
+package programacaoestruturada.decisao;
 
 public class E04_produtos {
 
@@ -28,5 +28,4 @@ public static void main(String[] args) {
 		System.out.println(precoParcela);
 		System.out.println(precoFinal);
 	}
-	
 }

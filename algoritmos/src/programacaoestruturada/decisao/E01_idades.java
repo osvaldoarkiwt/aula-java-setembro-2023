@@ -1,4 +1,4 @@
-package programacaoestruturada;
+package programacaoestruturada.decisao;
 
 import java.util.Scanner;
 

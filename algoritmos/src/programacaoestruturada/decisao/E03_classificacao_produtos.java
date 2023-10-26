@@ -1,4 +1,4 @@
-package programacaoestruturada;
+package programacaoestruturada.decisao;
 
 public class E03_classificacao_produtos {
 	
