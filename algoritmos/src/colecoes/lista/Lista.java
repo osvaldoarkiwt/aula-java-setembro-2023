@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Lista {
 
 	public static void main(String[] args) {
-		//List [x] / Set / Map
+		//List [x] / Set [x] hashset, treeset/ Map [x] hashmap, linkedhashmap 		
 		
 		ArrayList<String> alunos = new ArrayList<>();
 		/*
