@@ -67,6 +67,13 @@ public class Aluno {
 		return dataMatricula.format(dtf);
 	}
 
+	public String getDataVencimentoMatricula() {
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");	
+		
+		return dataMatricula.plusDays(7).format(dtf);
+	}
+	
 	public void setDataMatricula(LocalDateTime dataMatricula) {
 		this.dataMatricula = dataMatricula;
 	}

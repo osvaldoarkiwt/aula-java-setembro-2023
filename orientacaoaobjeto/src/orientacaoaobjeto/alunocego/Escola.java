@@ -13,5 +13,7 @@ public class Escola {
 		
 		System.out.println("idade: "+a01.getIdade());
 		
+		System.out.println("data de vencimento: "+a01.getDataVencimentoMatricula());
+		
 	}
 }
