@@ -1,14 +1,31 @@
 package orientacaoaobjeto.atributosemetodos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Veterinaria {
 
 	public static void main(String[] args) {
 					
 		Cachorro c01 = new Cachorro("timtim","marrom",4,"dócil","caramelo","grande");
 		
-		Cliente cl01 = new Cliente("1","Amanda",29,"13 de Maio","85999774455","amanda@email.com",c01);
+		Cachorro c02 = new Cachorro("bela","marrom",5,"dócil","labrador","grande");
+
+		List<Cachorro> pets = new ArrayList<>();
 		
-		System.out.println(cl01.cachorro.raca);
+		pets.add(c01);
+		
+		pets.add(c02);
+		
+		Cliente cl01 = new Cliente("1","Amanda",29,"13 de Maio","85999774455",
+														"amanda@email.com",pets);
+		
+//		Cliente cl01 = new Cliente("1","Amanda",29,"13 de Maio","85999774455",
+//											"amanda@email.com",Arrays.asList(c01));
+		
+		//System.out.println(cl01);
+		
+		System.out.println(cl01.getPetsZ());
 		
 		/*
 		c01.nome = "timtim";
