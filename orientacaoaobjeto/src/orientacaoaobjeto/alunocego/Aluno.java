@@ -72,6 +72,8 @@ public class Aluno {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/uuuu");	
 		
 		return dataMatricula.plusDays(7).format(dtf);
+		
+		//Verificar data de vencimento e caso caia no fim de semana setar para a próxima segunda.
 	}
 	
 	public void setDataMatricula(LocalDateTime dataMatricula) {
