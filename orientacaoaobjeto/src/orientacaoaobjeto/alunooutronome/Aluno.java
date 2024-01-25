@@ -1,4 +1,4 @@
-package orientacaoaobjeto.alunocego;
+package orientacaoaobjeto.alunooutronome;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
