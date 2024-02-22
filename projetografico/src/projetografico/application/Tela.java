@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import projetografico.model.Aluno;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Tela extends JFrame {
 
@@ -26,7 +29,9 @@ public class Tela extends JFrame {
 	private JTextField campoIdade;
 	private JLabel lblNewLabel_2;
 	private JTextField campoCurso;
-
+	private JScrollPane scrollPane;
+	private JTable table;
+	private Long id = 1L;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -90,24 +95,17 @@ public class Tela extends JFrame {
 		JButton botaoCadastrar = new JButton("cadastrar");
 		botaoCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nome = campoNome.getText();
 				
-				Integer idade = Integer.parseInt(campoIdade.getText().equals("")?
-															"0" : campoIdade.getText());
 				
-				String curso = campoCurso.getText();
+				Aluno aluno = recuperarDadosDoFormulario(id, campoNome, campoIdade, campoCurso);
 				
-				if(!nome.equals("") && idade !=0 && !curso.equals("")) {
+				if(aluno != null) {
+					popularTabela(aluno,table);
 					
-					Aluno a = new Aluno(nome,idade,curso);
-					
-					System.out.println(a);
-				}else {
-					JOptionPane.showMessageDialog(getParent(), "Todos os campos devem ser preenchidos!");
+					id++;
 				}
 				
-				
-				limpaCampos(campoNome, campoIdade, campoCurso);
+				limparCampos(campoNome, campoIdade, campoCurso);
 			}
 		});
 		botaoCadastrar.setForeground(new Color(255, 255, 255));
@@ -116,11 +114,63 @@ public class Tela extends JFrame {
 		botaoCadastrar.setBounds(10, 181, 85, 21);
 		contentPane.add(botaoCadastrar);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(211, 48, 382, 196);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		table.setFont(new Font("Wide Latin", Font.PLAIN, 10));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"id", "Nome", "Idade", "Curso"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Long.class, String.class, Integer.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		scrollPane.setViewportView(table);
+		
+
+		
 	}
 	
-	public static void limpaCampos(JTextField nome,JTextField idade, JTextField curso) {
+	public static void limparCampos(JTextField nome,JTextField idade, JTextField curso) {
 		nome.setText("");
 		idade.setText("");
 		curso.setText("");
+	}
+	
+	public static Aluno recuperarDadosDoFormulario(Long id, JTextField campoNome,JTextField campoIdade, JTextField campoCurso) {
+		
+		String nome = campoNome.getText();
+		
+		Integer idade = Integer.parseInt(campoIdade.getText().equals("")?
+													"0" : campoIdade.getText());
+
+		String curso = campoCurso.getText();
+		
+		if(!nome.equals("") && idade !=0 && !curso.equals("")) {
+					
+			Aluno aluno = new Aluno(id,nome,idade,curso);
+			
+			return aluno;
+		}else {
+			JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos!");
+		}
+		
+		return null;
+	}
+	
+	public static void popularTabela(Aluno aluno,JTable tabela) {
+		
+		Object[] linha = {aluno.getId(), aluno.getNome(), aluno.getIdade(), aluno.getCurso()};
+						
+		((DefaultTableModel) tabela.getModel()).addRow(linha);
 	}
 }
