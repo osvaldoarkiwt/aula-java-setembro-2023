@@ -32,6 +32,8 @@ public class Tela extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private Long id = 1L;
+	private JButton btnCarregar;
+	private JButton btnAtualizar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -111,15 +113,51 @@ public class Tela extends JFrame {
 		botaoCadastrar.setForeground(new Color(255, 255, 255));
 		botaoCadastrar.setBackground(new Color(0, 128, 255));
 		botaoCadastrar.setFont(new Font("SansSerif", Font.PLAIN, 10));
-		botaoCadastrar.setBounds(10, 181, 85, 21);
+		botaoCadastrar.setBounds(10, 152, 85, 21);
 		contentPane.add(botaoCadastrar);
+
+		JButton btnDeletar = new JButton("deletar");
+		btnDeletar.setFont(new Font("SansSerif", Font.PLAIN, 10));
+		btnDeletar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				apagarRegistroDaTabela(table);
+			}
+		});
+		btnDeletar.setBounds(10, 178, 85, 21);
+		contentPane.add(btnDeletar);
+		
+		btnCarregar = new JButton("carregar info");
+		btnCarregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				carregarRegistro(campoNome, campoIdade, campoCurso, table);
+			}
+		});
+		btnCarregar.setFont(new Font("SansSerif", Font.PLAIN, 10));
+		btnCarregar.setBounds(10, 209, 85, 21);
+		contentPane.add(btnCarregar);
+		
+		btnAtualizar = new JButton("atualizar"); 
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Aluno a = recuperarDadosDoFormulario(id, campoNome, campoIdade, campoCurso);
+				
+				editarLinha(a, table);
+				
+				limparCampos(campoNome, campoIdade, campoCurso);
+			}
+		});
+		btnAtualizar.setFont(new Font("SansSerif", Font.PLAIN, 10));
+		btnAtualizar.setBounds(10, 236, 85, 21);
+		contentPane.add(btnAtualizar);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(211, 48, 382, 196);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setFont(new Font("Wide Latin", Font.PLAIN, 10));
+		table.setFont(new Font("Verdana", Font.PLAIN, 10));
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -135,9 +173,6 @@ public class Tela extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
-		
-
-		
 	}
 	
 	public static void limparCampos(JTextField nome,JTextField idade, JTextField curso) {
@@ -147,7 +182,7 @@ public class Tela extends JFrame {
 	}
 	
 	public static Aluno recuperarDadosDoFormulario(Long id, JTextField campoNome,JTextField campoIdade, JTextField campoCurso) {
-		
+		 
 		String nome = campoNome.getText();
 		
 		Integer idade = Integer.parseInt(campoIdade.getText().equals("")?
@@ -172,5 +207,66 @@ public class Tela extends JFrame {
 		Object[] linha = {aluno.getId(), aluno.getNome(), aluno.getIdade(), aluno.getCurso()};
 						
 		((DefaultTableModel) tabela.getModel()).addRow(linha);
+	}
+	
+	public static void apagarRegistroDaTabela(JTable tabela) {
+		
+		int linha = tabela.getSelectedRow();
+		
+		//System.out.println(linha);
+		
+		if(linha != -1) {
+			
+			((DefaultTableModel) tabela.getModel()).removeRow(linha);
+		}else {
+			JOptionPane.showMessageDialog(tabela, "Nenhuma linha foi selecionada");
+		}
+	}
+	
+	public static void carregarRegistro(JTextField campoNome,JTextField campoIdade, JTextField campoCurso, JTable tabela) {
+		
+		int linha = tabela.getSelectedRow();
+				
+		DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+		
+		if(linha != -1) {
+			
+			campoNome.setText(modelo.getValueAt(linha, 1).toString());
+			
+			campoIdade.setText(modelo.getValueAt(linha, 2).toString());
+			
+			campoCurso.setText(modelo.getValueAt(linha, 3).toString());
+			
+			//((DefaultTableModel) tabela.getModel()).removeRow(linha);
+		}else {
+			JOptionPane.showMessageDialog(tabela, "Nenhuma linha foi selecionada");
+		}
+	}
+	
+	public static void editarLinha(Aluno aluno,JTable tabela) {
+		
+		//Object[] linha = {aluno.getId(), aluno.getNome(), aluno.getIdade(), aluno.getCurso()};
+						
+		//((DefaultTableModel) tabela.getModel()).addRow(linha);
+		
+		int linha = tabela.getSelectedRow();
+		
+		DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+		
+		Long id = (Long) modelo.getValueAt(linha, 0);
+		
+		if(linha != -1) {
+			
+			modelo.setValueAt(id, linha, 0);
+			
+			modelo.setValueAt(aluno.getNome(), linha, 1);
+			
+			modelo.setValueAt(aluno.getIdade(), linha, 2);
+			
+			modelo.setValueAt(aluno.getCurso(), linha, 3);
+			
+		}else {
+			JOptionPane.showMessageDialog(tabela, "Nenhuma linha foi selecionada");
+		}		
 	}
 }
