@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -106,6 +107,10 @@ public class Tela extends JFrame {
 				
 				if(aluno != null) {
 					dao.cadastrarAluno(aluno);
+					
+					limparTabela(table);
+					
+					popularTabela(dao, table);
 				}
 				
 				limparCampos(campoNome, campoIdade, campoCurso);
@@ -122,7 +127,7 @@ public class Tela extends JFrame {
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				apagarRegistroDaTabela(table);
+				apagarRegistroDaTabela(table,dao);
 			}
 		});
 		btnDeletar.setBounds(10, 178, 85, 21);
@@ -142,9 +147,21 @@ public class Tela extends JFrame {
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				int linha = table.getSelectedRow();
+				
+				DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+				
+				if(linha != -1) {
+					
+					Long id = (Long) modelo.getValueAt(linha, 0);
+				}
 				Aluno a = recuperarDadosDoFormulario(id, campoNome, campoIdade, campoCurso);
 				
-				editarLinha(a, table);
+				dao.atualizarAlunoPeloId(id, a);
+				
+				limparTabela(table);
+				
+				popularTabela(dao, table);
 				
 				limparCampos(campoNome, campoIdade, campoCurso);
 			}
@@ -174,6 +191,8 @@ public class Tela extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
+		
+		popularTabela(dao,table);
 	}
 	
 	public static void limparCampos(JTextField nome,JTextField idade, JTextField curso) {
@@ -203,22 +222,39 @@ public class Tela extends JFrame {
 		return null;
 	}
 	
-	public static void popularTabela(Aluno aluno,JTable tabela) {
+	public static void popularTabela(AlunoDao dao,JTable tabela) {
 		
-		Object[] linha = {aluno.getId(), aluno.getNome(), aluno.getIdade(), aluno.getCurso()};
-						
-		((DefaultTableModel) tabela.getModel()).addRow(linha);
+		List<Aluno> alunos = dao.carregarAlunos();
+		
+		for(Aluno aluno : alunos) {
+			
+			Object[] linha = {aluno.getId(), aluno.getNome(), aluno.getIdade(), aluno.getCurso()};
+			
+			((DefaultTableModel) tabela.getModel()).addRow(linha);
+		}
 	}
 	
-	public static void apagarRegistroDaTabela(JTable tabela) {
+	public static void limparTabela(JTable tabela) {
+		((DefaultTableModel) tabela.getModel()).setRowCount(0);
+	}
+	
+	public static void apagarRegistroDaTabela(JTable tabela,AlunoDao dao) {
 		
 		int linha = tabela.getSelectedRow();
+
+		DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
 		
-		//System.out.println(linha);
+		Long id = (Long) modelo.getValueAt(linha, 0);
 		
+		Aluno aluno = dao.carregarAlunoPeloId(id);
+				
 		if(linha != -1) {
 			
-			((DefaultTableModel) tabela.getModel()).removeRow(linha);
+			dao.deletarAlunoPeloId(aluno);
+			
+			limparTabela(tabela);
+			
+			popularTabela(dao, tabela);
 		}else {
 			JOptionPane.showMessageDialog(tabela, "Nenhuma linha foi selecionada");
 		}

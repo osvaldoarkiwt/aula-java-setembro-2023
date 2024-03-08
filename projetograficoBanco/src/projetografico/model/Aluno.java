@@ -7,6 +7,8 @@ public class Aluno {
 	private Integer idade;
 	private String curso;
 	
+	public Aluno() {};
+	
 	public Aluno(Long id,String nome, Integer idade, String curso) {
 		this.id = id;
 		this.nome = nome;
