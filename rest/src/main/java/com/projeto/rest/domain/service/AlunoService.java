@@ -1,5 +1,6 @@
 package com.projeto.rest.domain.service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,14 +53,21 @@ public class AlunoService {
 		*/
 	}
 	
-	public void deletarAluno(Long alunoId) {
+	public Aluno deletarAluno(Long alunoId) {
 	
 		Aluno aluno = buscarAlunoPeloId(alunoId);
 		
 		if(aluno != null) {
-			alunoRepository.delete(aluno);
+			//alunoRepository.delete(aluno);
+			
+			aluno.setDeletedAt(OffsetDateTime.now());
+			
+			alunoRepository.save(aluno);
+			
 		}else {
 			System.err.println("O aluno "+alunoId+" não existe");
 		}
+		
+		return aluno;
 	}
 }

@@ -2,6 +2,7 @@ package com.projeto.rest.api.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +35,11 @@ public class AlunoController {
 	}
 	
 	@GetMapping("/nome/{alunoNome}")
-	public Aluno retornarAlunoPeloNome(@PathVariable String alunoNome) {
-		return alunoService.buscarAlunoPeloNome(alunoNome);
+	public ResponseEntity<Aluno> retornarAlunoPeloNome(@PathVariable String alunoNome) {
+		
+		Aluno aluno = alunoService.buscarAlunoPeloNome(alunoNome);
+		
+		return ResponseEntity.ok(aluno);
 	}
 	
 	@PostMapping
@@ -49,7 +53,10 @@ public class AlunoController {
 	}
 	
 	@DeleteMapping("/{alunoId}")
-	public void deletarAluno(@PathVariable Long alunoId) {
-		alunoService.deletarAluno(alunoId);
+	//@ResponseStatus(HttpStatus.NO_CONTENT)
+	public ResponseEntity<Aluno> deletarAluno(@PathVariable Long alunoId) {
+		Aluno aluno = alunoService.deletarAluno(alunoId);
+		
+		return aluno == null ? ResponseEntity.notFound().build() : ResponseEntity.noContent().build();
 	}
 }
