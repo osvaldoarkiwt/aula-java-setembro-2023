@@ -4,10 +4,14 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.projeto.rest.domain.model.Aluno;
+import com.projeto.rest.domain.model.filter.AlunoFilter;
 import com.projeto.rest.domain.repository.AlunoRepository;
+import com.projeto.rest.domain.repository.spec.AlunoSpec;
 
 import lombok.AllArgsConstructor;
 
@@ -17,8 +21,9 @@ public class AlunoService {
 
 	private AlunoRepository alunoRepository;
 	
-	public List<Aluno> buscarAlunos(){
-		return alunoRepository.findAll();
+	public List<Aluno> buscarAlunos(AlunoFilter filtro){
+			
+		return alunoRepository.findAll(AlunoSpec.usandoFiltro(filtro));
 	}
 	
 	public Aluno buscarAlunoPeloId(Long id) {
@@ -27,6 +32,10 @@ public class AlunoService {
 	
 	public Aluno buscarAlunoPeloNome(String nome) {
 		return alunoRepository.findByNomeStartingWith(nome).orElse(null);
+	}
+	
+	public List<Aluno> buscarAlunoPeloNomeLike(String nome) {
+		return alunoRepository.encontrePeloNome(nome);
 	}
 	
 	public Aluno adicionarAluno(Aluno aluno) {
