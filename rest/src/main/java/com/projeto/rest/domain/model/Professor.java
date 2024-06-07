@@ -1,7 +1,5 @@
 package com.projeto.rest.domain.model;
 
-import java.time.OffsetDateTime;
-
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,18 +10,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @Entity
-@Table(name="alunos")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-//@Getter
-//@Setter
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Aluno {
+@Table(name="professores")
+public class Professor {
 
 	@Id
-	//@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
@@ -31,6 +25,4 @@ public class Aluno {
 	
 	@Embedded
 	private Endereco endereco;
-	
-	private OffsetDateTime deletedAt;
 }
