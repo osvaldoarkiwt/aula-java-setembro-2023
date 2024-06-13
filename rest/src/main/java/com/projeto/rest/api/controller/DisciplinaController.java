@@ -57,5 +57,4 @@ public class DisciplinaController {
 	public void deletarDisciplina(@PathVariable Long id) {
 		service.deletarDisciplina(id);
 	}
-	
 }

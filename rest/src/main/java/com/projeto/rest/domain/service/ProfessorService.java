@@ -1,9 +1,12 @@
 package com.projeto.rest.domain.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.projeto.rest.api.dto.ProfessorModelBasic;
+import com.projeto.rest.api.input.ProfessorInput;
 import com.projeto.rest.domain.model.Professor;
 import com.projeto.rest.domain.repository.ProfessorRepository;
 
@@ -15,16 +18,38 @@ public class ProfessorService {
 
 	private ProfessorRepository repository;
 	
-	public List<Professor> listarProfessores(){
-		return repository.findAll();
+	public List<ProfessorModelBasic> listarProfessores(){
+		List<Professor> professores = repository.findAll();
+		
+		List<ProfessorModelBasic> professoresModel = new ArrayList<>();
+		
+		professores.stream().forEach(professor -> {
+			ProfessorModelBasic p = new ProfessorModelBasic();
+			
+			p = permutaDeDados(professor);
+			
+			professoresModel.add(p);
+		});
+		
+		return professoresModel;
 	}
 	
 	public Professor buscarProfessorPeloId(Long id){
 		return repository.findById(id).orElse(null);
 	}
 	
-	public Professor salvarProfessor(Professor professor) {
-		return repository.save(professor);
+	public ProfessorModelBasic salvarProfessor(ProfessorInput input) {
+		
+		Professor professor = new Professor();
+		
+		professor.setNome(input.getNome());
+		professor.setEndereco(input.getEndereco());
+		
+		repository.save(professor);
+		
+		ProfessorModelBasic p = permutaDeDados(professor);
+		
+		return p;
 	}
 	
 	public void deletarProfessor(Long id) {
@@ -33,5 +58,16 @@ public class ProfessorService {
 		if(professor != null) {
 			repository.delete(professor);
 		}
+	}
+	
+	public ProfessorModelBasic permutaDeDados(Professor professor) {
+		
+		ProfessorModelBasic basico = new ProfessorModelBasic();
+		
+		basico.setId(professor.getId());
+		basico.setNome(professor.getNome());
+		basico.setEndereco(professor.getEndereco());
+		
+		return basico;
 	}
 }
