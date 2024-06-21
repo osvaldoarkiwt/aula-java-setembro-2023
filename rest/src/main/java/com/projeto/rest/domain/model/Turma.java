@@ -9,32 +9,22 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name="turmas")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name="disciplina")
-public class Disciplina {
+public class Turma {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String descricao;
+	private String nome;
 	
-	@ManyToOne
-	@JoinColumn(name="professor_id")
-	private Professor professor;
-	
-	@ManyToMany(mappedBy="disciplinas",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "turma" ,fetch = FetchType.LAZY)
 	@JsonManagedReference
 	private List<Aluno> alunos;
 }

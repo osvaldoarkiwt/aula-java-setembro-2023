@@ -43,6 +43,16 @@ public class DisciplinaController {
 		return service.criarDisciplina(disciplina);
 	}
 	
+	@PutMapping("/{disciplinaId}/aluno/{alunoId}/add")
+	public Disciplina cadastrarAlunoNaDisciplina(@PathVariable Long disciplinaId, @PathVariable Long alunoId) {
+		return service.cadastrarAlunoNaDisciplina(disciplinaId, alunoId);
+	}
+	
+	@PutMapping("/{disciplinaId}/aluno/{alunoId}/delete")
+	public Disciplina removerAlunoNaDisciplina(@PathVariable Long disciplinaId, @PathVariable Long alunoId) {
+		return service.removerAlunoNaDisciplina(disciplinaId, alunoId);
+	}
+	
 	@PutMapping("/{id}/professor/{professorId}/add")
 	public Disciplina cadastrarProfessorDisciplina(@PathVariable Long id, @PathVariable Long professorId) {
 		return service.cadastrarProfessorDisciplina(id, professorId);

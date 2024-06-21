@@ -4,11 +4,10 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.projeto.rest.domain.model.Aluno;
+import com.projeto.rest.domain.model.Turma;
 import com.projeto.rest.domain.model.filter.AlunoFilter;
 import com.projeto.rest.domain.repository.AlunoRepository;
 import com.projeto.rest.domain.repository.spec.AlunoSpec;
@@ -28,6 +27,16 @@ public class AlunoService {
 	
 	public Aluno buscarAlunoPeloId(Long id) {
 		return alunoRepository.findById(id).orElse(null);
+	}
+	
+	public String buscarTurmasPeloAlunoId(Long id) {
+		Aluno aluno = alunoRepository.findById(id).orElse(null);
+		
+		if(aluno != null) {
+			return aluno.getTurma().getNome();
+		}
+		
+		return null;
 	}
 	
 	public Aluno buscarAlunoPeloNome(String nome) {

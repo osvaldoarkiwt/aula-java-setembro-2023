@@ -2,6 +2,8 @@ package com.projeto.rest.domain.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,6 +32,7 @@ public class Professor {
 	@Embedded
 	private Endereco endereco;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "professor")
+	@OneToMany(mappedBy = "professor")
+	@JsonIgnore
 	private List<Disciplina> disciplinas;
 }

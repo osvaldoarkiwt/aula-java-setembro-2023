@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.projeto.rest.api.dto.DisciplinaModelBasic;
 import com.projeto.rest.api.dto.ProfessorModelBasic;
 import com.projeto.rest.api.input.ProfessorInput;
 import com.projeto.rest.domain.model.Professor;
@@ -64,9 +65,22 @@ public class ProfessorService {
 		
 		ProfessorModelBasic basico = new ProfessorModelBasic();
 		
+		List<DisciplinaModelBasic> disciplinaModel = new ArrayList<>();
+		
+		professor.getDisciplinas().stream().forEach(d -> {
+			DisciplinaModelBasic dmb = new DisciplinaModelBasic();
+			
+			dmb.setId(d.getId());
+			dmb.setDescricao(d.getDescricao());
+			
+			disciplinaModel.add(dmb);
+		});
+		
+		
 		basico.setId(professor.getId());
 		basico.setNome(professor.getNome());
 		basico.setEndereco(professor.getEndereco());
+		basico.setDisciplinas(disciplinaModel);
 		
 		return basico;
 	}

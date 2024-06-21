@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.rest.domain.model.Aluno;
+import com.projeto.rest.domain.model.Turma;
 import com.projeto.rest.domain.model.filter.AlunoFilter;
 import com.projeto.rest.domain.service.AlunoService;
 
@@ -40,6 +41,11 @@ public class AlunoController {
 		
 		return aluno == null ? ResponseEntity.notFound().build() :
 							   ResponseEntity.ok(aluno);
+	}
+	
+	@GetMapping("/{id}/turma")
+	public String retornaTurmaDoAluno(@PathVariable Long id) {
+		return alunoService.buscarTurmasPeloAlunoId(id);
 	}
 	
 	@GetMapping("/nome/{alunoNome}")
