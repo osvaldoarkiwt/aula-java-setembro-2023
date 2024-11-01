@@ -29,15 +29,16 @@ public class AlunoService {
 		return alunoRepository.findById(id).orElse(null);
 	}
 	
+	/*
 	public String buscarTurmasPeloAlunoId(Long id) {
 		Aluno aluno = alunoRepository.findById(id).orElse(null);
 		
-		if(aluno != null) {
-			return aluno.getTurma().getNome();
-		}
+		//if(aluno != null) {
+		//	return aluno.getTurma().getNome();
+		//}
 		
-		return null;
-	}
+		return aluno;
+	}*/
 	
 	public Aluno buscarAlunoPeloNome(String nome) {
 		return alunoRepository.findByNomeStartingWith(nome).orElse(null);

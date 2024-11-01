@@ -34,7 +34,7 @@ public class Disciplina {
 	@JoinColumn(name="professor_id")
 	private Professor professor;
 	
-	@ManyToMany(mappedBy="disciplinas",fetch = FetchType.LAZY)
-	@JsonManagedReference
-	private List<Aluno> alunos;
+	//@ManyToMany(mappedBy="disciplinas",fetch = FetchType.LAZY)
+	//@JsonManagedReference
+	//private List<Aluno> alunos;
 }

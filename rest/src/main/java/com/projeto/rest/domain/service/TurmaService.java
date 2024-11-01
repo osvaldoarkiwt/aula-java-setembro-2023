@@ -33,7 +33,7 @@ public class TurmaService {
 			resposta.setNome(t.getNome());
 			
 			List<AlunoModelBasic> alunos = new ArrayList<>();
-			
+			/*
 			t.getAlunos().stream().forEach( a -> {
 				
 				AlunoModelBasic aluno = new AlunoModelBasic();
@@ -44,7 +44,7 @@ public class TurmaService {
 				
 				alunos.add(aluno);
 			});
-			
+			*/
 			resposta.setAlunos(alunos);
 			
 			turmasBasica.add(resposta);

@@ -42,17 +42,17 @@ public class Aluno {
 	private Endereco endereco;
 	
 	
-	@ManyToMany
-	@JoinTable(name="aluno_disciplina",
-			   joinColumns = @JoinColumn(name="aluno_id"),
-			   inverseJoinColumns = @JoinColumn(name="disciplina_id"))
-	@JsonBackReference
-	private List<Disciplina> disciplinas;
+	//@ManyToMany
+	//@JoinTable(name="aluno_disciplina",
+	//		   joinColumns = @JoinColumn(name="aluno_id"),
+	//		   inverseJoinColumns = @JoinColumn(name="disciplina_id"))
+	//@JsonBackReference
+	//private List<Disciplina> disciplinas;
 	
-	@ManyToOne
-	@JsonBackReference
-	@JoinColumn(name="turma_id")
-	private Turma turma;
+	//@ManyToOne
+	//@JsonBackReference
+	//@JoinColumn(name="turma_id")
+	//private Turma turma;
 	
 	private OffsetDateTime deletedAt;
 }

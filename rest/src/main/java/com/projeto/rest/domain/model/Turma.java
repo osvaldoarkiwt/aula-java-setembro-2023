@@ -24,7 +24,7 @@ public class Turma {
 	
 	private String nome;
 	
-	@OneToMany(mappedBy = "turma" ,fetch = FetchType.LAZY)
-	@JsonManagedReference
-	private List<Aluno> alunos;
+	//@OneToMany(mappedBy = "turma" ,fetch = FetchType.LAZY)
+	//@JsonManagedReference
+	//private List<Aluno> alunos;
 }

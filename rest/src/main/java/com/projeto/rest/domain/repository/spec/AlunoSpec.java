@@ -11,6 +11,8 @@ import jakarta.persistence.criteria.Predicate;
 
 public class AlunoSpec {
 
+	private AlunoSpec(){}
+	
 	public static Specification<Aluno> usandoFiltro(AlunoFilter filtro){
 		
 		return (root,query,builder) ->{

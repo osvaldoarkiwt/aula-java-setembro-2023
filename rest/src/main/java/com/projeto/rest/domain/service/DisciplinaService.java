@@ -58,7 +58,7 @@ public class DisciplinaService {
 		
 		Disciplina disciplina = listarDisciplinaId(disciplinaId);
 		
-		aluno.getDisciplinas().add(disciplina);
+		//aluno.getDisciplinas().add(disciplina);
 		
 		alunoService.adicionarAluno(aluno);
 		
@@ -74,7 +74,7 @@ public class DisciplinaService {
 		
 		Disciplina disciplina = listarDisciplinaId(disciplinaId);
 		
-		aluno.getDisciplinas().remove(disciplina);
+		//aluno.getDisciplinas().remove(disciplina);
 		
 		alunoService.adicionarAluno(aluno);
 		
